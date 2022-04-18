@@ -1,7 +1,7 @@
 from base import Game
 
-g = Game()
+EmeraldRPG = Game()
 
-while g.running:
-    g.curr_menu.display_menu()
-    g.game_loop()
+while EmeraldRPG.running:
+    EmeraldRPG.curr_menu.display_menu()
+    EmeraldRPG.game_loop()
