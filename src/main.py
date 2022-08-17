@@ -1,4 +1,4 @@
-from base import Game
+from menu.base import *
 
 EmeraldRPG = Game()
 

@@ -1,0 +1,4 @@
+Stage 1 : "The Wolf Caves"
+    Mobs: Wolves
+    Final Boss: "Werezelya the Wolf"
+    Levels: 10

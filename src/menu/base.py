@@ -1,8 +1,10 @@
-import pygame
-from menu import *
-import os
+import sys
 
-os.chdir('C:\\coding\\python\\PyGames\\EmeraldGame')
+import pygame
+from game import *
+from game_data import *
+
+from .menu import *
 
 class Game():
     def __init__(self):
@@ -23,12 +25,23 @@ class Game():
         while self.playing:
             self.check_events()
             if self.START_KEY:
-                self.playing= False
-            self.display.fill(self.BLACK)
-            self.draw_text('TODO . MAKE LEVELS', 20, self.DISPLAY_W/2, self.DISPLAY_H/2)
-            self.window.blit(self.display, (0,0))
-            pygame.display.update()
-            self.reset_keys()
+                self.playing = False
+            screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+            pygame.display.set_caption("EmeraldRPG")
+            clock = pygame.time.Clock()
+            level = Level(level_0, screen)
+
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+                screen.fill('black')
+                level.run()
+
+                pygame.display.update()
+                clock.tick(60)
 
     def check_events(self):
         for event in pygame.event.get():
@@ -49,7 +62,9 @@ class Game():
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
 
     def draw_text(self, text, size, x, y):
+        pygame.font.init()
         font = pygame.font.Font(self.font_name,size)
+        # font = pygame.font.SysFont('Verdana', size)
         text_surface = font.render(text, True, self.EMERALD_GREEN)
         text_rect = text_surface.get_rect()
         text_rect.center = (x,y)
