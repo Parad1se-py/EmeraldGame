@@ -32,6 +32,9 @@ class Game():
         self.credits = CreditsMenu(self)
         self.curr_menu = self.main_menu
 
+        self.curr_level = 0
+        self.levels = {0: level_0}
+
     def game_loop(self):
         while self.playing:
             self.check_events()
@@ -40,7 +43,7 @@ class Game():
             screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
             pygame.display.set_caption("EmeraldRPG")
             clock = pygame.time.Clock()
-            level = Level(level_0, screen)
+            level = Level(self.levels[self.curr_level], screen, 'orc')
 
             while True:
                 for event in pygame.event.get():
