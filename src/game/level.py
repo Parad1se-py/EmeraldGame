@@ -13,6 +13,7 @@ import pygame
 from .settings import *
 from .tiles import *
 from .utils import *
+from .enemy import *
 
 
 class Level:
@@ -31,7 +32,11 @@ class Level:
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
 
-    """        # Crates setup of the level
+        # Enemy
+        orc_layout = import_csv_layout(level_data['enemies']['orc'])
+        self.orc_sprites = self.create_tile_group(orc_layout, 'orc')
+
+    """# Crates setup of the level
         crate_layout = import_csv_layout(level_data['crates'])
         self.crate_sprites = self.create_tile_group(crate_layout, 'crates')
 
@@ -64,10 +69,12 @@ class Level:
                     sprite = Crate(tile_size, x, y)
 
                 elif type == 'coins':
-                    sprite = AnimatedTile(tile_size, x, y, 'assets/graphics/coins/coin_tiles.png')
+                    sprite = Coin(tile_size, x, y, 'assets/graphics/coins/coin_tiles.png')
+
+                elif type == 'orc':
+                    sprite = Orc(tile_size, x, y)
 
                 sprite_group.add(sprite)
-
 
         return sprite_group
 
@@ -76,9 +83,21 @@ class Level:
         self.terrain_sprites.draw(self.display_surface)
         self.terrain_sprites.update(self.world_shift)
 
+        # enemies
+        self.orc_sprites.draw(self.display_surface)
+        self.orc_sprites.update(self.world_shift)
+
         # grass
         self.grass_sprites.draw(self.display_surface)
         self.grass_sprites.update(self.world_shift)
+
+        '''# crate
+        self.crate_sprites.draw(self.display_surface)
+        self.crate_sprites.update(self.world_shift)
+
+        # coins
+        self.coins_sprites.draw(self.display_surface)
+        self.coins_sprites.update(self.world_shift)'''
 
     def run(self):
         # run the game
