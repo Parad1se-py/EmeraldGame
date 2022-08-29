@@ -14,5 +14,6 @@ level_0 = {
     'constraints': 'levels/0/level_0._constraints.csv',
     'enemies': {
         'orc': 'levels/0/level_0._enemies.csv'
-    }
+    },
+    'player': 'levels/0/level_0.player.csv'
 }
