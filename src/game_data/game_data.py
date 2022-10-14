@@ -15,5 +15,7 @@ level_0 = {
     'enemies': {
         'orc': 'levels/0/level_0._enemies.csv'
     },
-    'player': 'levels/0/level_0.player.csv'
+    'player': 'levels/0/level_0.player.csv',
+    'coins': 'levels/0/level_0._coins.csv',
+    'crates': 'levels/0/level_0._crates.csv'
 }

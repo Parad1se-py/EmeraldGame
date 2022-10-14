@@ -17,12 +17,12 @@ from ..tiles import *
 
 class Enemy(AnimatedTile):
     def __init__(self, size, x, y, type):
-        super().__init__(size, x, y, 'assets/graphics/enemy/orc/run')
-
-        self.rect.y += size - self.image.get_size()[1]
         
         if type.lower() == 'orc':
             self.speed = random.randint(2, 4)
+            super().__init__(size, x, y, 'assets/graphics/enemy/orc/run')
+
+        self.rect.y += size - self.image.get_size()[1]
 
     def move(self):
         self.rect.x += self.speed
