@@ -21,6 +21,9 @@ class Enemy(AnimatedTile):
         if type.lower() == 'orc':
             self.speed = random.randint(2, 4)
             super().__init__(size, x, y, 'assets/graphics/enemy/orc/run')
+        elif type.lower() == 'turned':
+            self.speed = random.randint(6, 10)
+            super().__init__(size, x, y, 'assets/graphics/enemy/turned/run')
 
         self.rect.y += size - self.image.get_size()[1]
 
