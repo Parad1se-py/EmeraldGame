@@ -8,6 +8,7 @@
 # Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import itertools
 from csv import reader
 from os import walk
 
@@ -28,13 +29,12 @@ def import_cut_graphics(path):
     tile_num_y = int(surface.get_size()[1] / tile_size)
 
     cut_tiles = []
-    for row in range(tile_num_y):
-        for col in range(tile_num_x):
-            x = col * tile_size
-            y = row * tile_size
-            new_surface = pygame.Surface((tile_size, tile_size), flags=pygame.SRCALPHA)
-            new_surface.blit(surface, (0, 0), pygame.Rect(x, y, tile_size, tile_size))
-            cut_tiles.append(new_surface)
+    for row, col in itertools.product(range(tile_num_y), range(tile_num_x)):
+        x = col * tile_size
+        y = row * tile_size
+        new_surface = pygame.Surface((tile_size, tile_size), flags=pygame.SRCALPHA)
+        new_surface.blit(surface, (0, 0), pygame.Rect(x, y, tile_size, tile_size))
+        cut_tiles.append(new_surface)
 
     return cut_tiles
 
@@ -42,7 +42,6 @@ def import_folder(path):
     surface_list = []
 
     for _, __, image_files in walk(path):
-        for image in image_files:
-            surface_list.append(pygame.image.load(f'{path}/{image}').convert_alpha())
+        surface_list.extend(pygame.image.load(f'{path}/{image}').convert_alpha() for image in image_files)
 
     return surface_list
